@@ -4,13 +4,11 @@ int	ft_atoi(const char *str)
 {
 	unsigned int	i;
 	int				sign;
-	int				result;
-	int				num;
+	long			result;
 
 	i = 0;
 	result = 0;
 	sign = 1;
-	num = 18;
 	while ((str[i] == ' ') || ((str[i] > 8) && (str[i] < 14)))
 		i++;
 	if (str[i] == '-')
@@ -19,9 +17,11 @@ int	ft_atoi(const char *str)
 		i++;
 	while ((str[i] >= '0') && (str[i] <= '9'))
 	{
-		if (!num--)
-			return ((1 + sign) / (-2));
 		result = result * 10 + (str[i] - '0');
+		if (result > 2147483647 && sign == 1)
+			return (-1);
+		if (result > 2147483648 && sign == -1)
+			return (0);
 		i++;
 	}
 	return (sign * result);
