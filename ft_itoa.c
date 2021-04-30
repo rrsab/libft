@@ -1,46 +1,44 @@
 #include "libft.h"
 
-static int	ft_lenint(long int s)
+static int	ft_nbrlen (int n)
 {
-	int	l;
+	int	i;
 
-	if (s <= 0)
-		l = 1;
-	else
-		l = 0;
-	while (s != 0)
+	i = 0;
+	if (n <= 0)
+		i++;
+	while (n != 0)
 	{
-		s = s / 10;
-		l++;
+		n = n / 10;
+		i++;
 	}
-	return (l);
+	return (i);
 }
 
 char	*ft_itoa(int n)
 {
 	char	*str;
-	int		sign;
-	int		l;
+	int		len;
 
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
-	sign = 1;
-	l = ft_lenint(n);
-	str = (char *)malloc(sizeof(char) * (l + 1));
+	len = ft_nbrlen(n);
+	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
-		return (NULL);
+		return (0);
+	if (n == 0)
+		str[0] = '0';
+	str[len] = '\0';
 	if (n < 0)
 	{
-		sign = -1;
-		n = n * -1;
+		str[0] = '-';
+		n *= -1;
 	}
-	str[l] = '\0';
-	while (l-- >= 0)
+	while (n)
 	{
-		str[l] = (n % 10) + '0';
+		len--;
+		str[len] = (n % 10) + 48;
 		n = n / 10;
 	}
-	if (sign == -1)
-		str[0] = '-';
 	return (str);
 }

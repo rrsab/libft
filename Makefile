@@ -25,7 +25,7 @@ $(NAME):	$(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 %.o : %.c	$(HEADER)
-	$(CC)$(FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
  
 all:		$(NAME)
 
